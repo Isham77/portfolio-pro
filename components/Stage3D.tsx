@@ -6,13 +6,31 @@ import CodeCloud from "./CodeCloud";
 
 const MOBILE_QUERY = "(max-width: 900px)";
 
-/** The small, faint code lines that drift behind the photo. */
+/** Where the photo's centre sits across the screen, from 0 (left edge) to 1 (right edge). */
+function usePhotoCentre() {
+  const [centre, setCentre] = useState(0.79);
+  useEffect(() => {
+    const read = () => {
+      const photo = document.querySelector<HTMLElement>(".portrait");
+      if (!photo) return;
+      const box = photo.getBoundingClientRect();
+      setCentre((box.left + box.width / 2) / window.innerWidth);
+    };
+    read();
+    window.addEventListener("resize", read);
+    return () => window.removeEventListener("resize", read);
+  }, []);
+  return centre;
+}
+
+/** The small, faint code lines that drift behind the photo, centred on it. */
 function Scene({ mobile, reduced }: { mobile: boolean; reduced: boolean }) {
   const width = useThree((s) => s.viewport.width);
+  const centre = usePhotoCentre();
   const scale = mobile ? Math.min(0.56, width * 0.19) : Math.min(1.1, width * 0.12);
   const screenY = mobile ? 1.4 : 0.25;
   return (
-    <group position={[mobile ? 0 : width * 0.3, screenY - 0.75 * scale, 0]} scale={scale} rotation={[0.08, 0, 0]}>
+    <group position={[mobile ? 0 : (centre - 0.5) * width, screenY - 0.75 * scale, 0]} scale={scale} rotation={[0.08, 0, 0]}>
       <CodeCloud reduced={reduced} mobile={mobile} />
     </group>
   );

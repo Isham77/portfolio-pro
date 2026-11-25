@@ -149,11 +149,12 @@ export default function Sheets() {
                 <i />
                 <i />
                 <span>{p.file}</span>
-                <em>
-                  {p.code} · {p.kind}
-                </em>
+                <em>{p.kind}</em>
               </div>
               <div className="project-body">
+                <span className="project-num" aria-hidden="true">
+                  {p.code}
+                </span>
                 <h3>{p.name}</h3>
                 <p className="project-tag">
                   <T>{p.tagline}</T>

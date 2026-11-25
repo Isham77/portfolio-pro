@@ -12,7 +12,7 @@
   --rust: #d2622f;
   --green: #7fc79a;
   --gutter: clamp(16px, 4vw, 56px);
-  --content: min(60%, 820px);
+  --content: min(60%, 680px);
   --radius: 14px;
   --display: var(--font-display), system-ui, sans-serif;
   --mono: var(--font-mono), ui-monospace, monospace;
@@ -340,7 +340,7 @@ button {
 }
 
 .hero-name {
-  font-size: clamp(3.2rem, 8.2vw, 7.6rem);
+  font-size: clamp(3.2rem, 8.2vw, 9.4rem);
   font-stretch: 78%;
   font-weight: 800;
   line-height: 0.92;
@@ -407,13 +407,12 @@ button {
   margin-top: 30px;
 }
 
+/* The stat cards sit under the buttons, so text, stats and photo read as one group. */
 .stats {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 48px;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  margin-top: 30px;
 }
 
 .stats > div {
@@ -626,11 +625,35 @@ button {
 /* Projects */
 .projects {
   display: grid;
-  gap: 22px;
+  gap: 18px;
 }
 
 .project {
+  position: relative;
   overflow: hidden;
+}
+
+/* A thin amber line along the top that lights up on hover. */
+.project::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--rust), transparent);
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+}
+
+.project:hover {
+  transform: translateY(-3px);
+  border-color: rgba(214, 164, 91, 0.35);
+  box-shadow: 0 28px 60px -34px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(214, 164, 91, 0.06);
+}
+
+.project:hover::before {
+  opacity: 1;
 }
 
 .chrome {
@@ -671,44 +694,87 @@ button {
 }
 
 .project-body {
-  padding: clamp(20px, 3vw, 34px);
+  position: relative;
+  padding: 22px clamp(18px, 2.4vw, 26px) 22px;
+}
+
+/* A large, faint project number in the corner. */
+.project-num {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  color: rgba(239, 233, 222, 0.05);
+  font-size: 76px;
+  font-stretch: 78%;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.25s ease;
+}
+
+.project:hover .project-num {
+  color: rgba(214, 164, 91, 0.12);
 }
 
 .project h3 {
-  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
-  font-stretch: 84%;
-  font-weight: 800;
-  line-height: 1.05;
+  position: relative;
+  padding-right: 64px;
+  font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+  font-stretch: 88%;
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
 }
 
 .project-tag {
-  margin-top: 8px;
-  font-size: 1.08rem;
-  color: var(--paper);
+  position: relative;
+  margin-top: 6px;
+  max-width: 44em;
+  color: var(--text);
+  font-size: 15px;
 }
 
 .case {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 28px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .case div {
-  padding: 13px 0;
-  border-top: 1px solid var(--line);
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .case div:first-child {
   grid-column: 1 / -1;
 }
 
+.case dt {
+  color: #c99a57;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .case dd {
-  margin-top: 3px;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .project .tags {
-  margin-top: 18px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.project .tags li {
+  padding: 2px 9px;
+  font-size: 11.5px;
 }
 
 /* BridgeX diagram */
@@ -1110,13 +1176,6 @@ button {
   .brand-text small {
     display: none;
   }
-
-  /* Not enough room beside the photo, so the stat cards sit under the buttons */
-  .stats {
-    position: static;
-    justify-content: start;
-    margin-top: 28px;
-  }
 }
 
 /* Tablet and phone: 3D stays at the top, content takes the full width */
@@ -1307,7 +1366,8 @@ button {
   position: fixed;
   z-index: 0;
   top: calc(50svh - var(--p) / 2 + 26px);
-  left: calc(var(--portrait-x, 79vw) - var(--p) / 2);
+  /* Just past the end of the text column, so the gap stays the same on wide screens. */
+  left: min(calc(79vw - var(--p) / 2), calc(var(--gutter) + 680px + 100px));
   width: var(--p);
   height: var(--p);
   pointer-events: none;
