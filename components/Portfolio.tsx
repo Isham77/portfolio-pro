@@ -19,6 +19,17 @@ const LINKS = [
   ["contact", "Contact"],
 ] as const;
 
+/** The quiet label under the photo, naming the section being read. */
+const CAPTIONS: Record<string, string> = {
+  about: "A bit about me",
+  services: "What I do",
+  work: "Selected work",
+  system: "Architecture",
+  experience: "Where I've worked",
+  skills: "Skills and tools",
+  contact: "Let's work together",
+};
+
 export default function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
@@ -55,7 +66,10 @@ export default function Portfolio() {
       }
       setActive(current);
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progress.current) progress.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      const read = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (progress.current) progress.current.style.transform = `scaleX(${read})`;
+      // The tracker line under the photo: fills red → amber → green as the page is read.
+      document.querySelector<HTMLElement>(".portrait-track")?.style.setProperty("--read", String(read));
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -70,10 +84,47 @@ export default function Portfolio() {
     };
   }, []);
 
+  // A faint glow that follows the mouse (desktop only; skipped for reduced motion).
+  useEffect(() => {
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!fine || calm) return;
+    const root = document.documentElement;
+    let frame = 0;
+    let x = 0;
+    let y = 0;
+    const apply = () => {
+      frame = 0;
+      root.style.setProperty("--mx", `${x}px`);
+      root.style.setProperty("--my", `${y}px`);
+    };
+    const move = (e: PointerEvent) => {
+      x = e.clientX;
+      y = e.clientY;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    root.classList.add("has-spot");
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", move);
+      cancelAnimationFrame(frame);
+      root.classList.remove("has-spot");
+    };
+  }, []);
+
+  const index = LINKS.findIndex(([id]) => id === active);
+  const caption =
+    index < 0 ? { no: "", title: "Scroll to explore" } : { no: String(index + 1).padStart(2, "0"), title: CAPTIONS[active] };
+
   return (
     <>
+      <div className="backdrop" aria-hidden="true">
+        <i className="glow glow-warm" />
+        <i className="glow glow-cool" />
+        <i className="spot" />
+      </div>
       <Stage3D />
-      <Portrait />
+      <Portrait caption={caption} />
 
       <nav className="nav" aria-label="Main">
         <span className="progress" ref={progress} aria-hidden="true" />
