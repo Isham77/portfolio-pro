@@ -6,33 +6,14 @@ import CodeCloud from "./CodeCloud";
 
 const MOBILE_QUERY = "(max-width: 900px)";
 
-/** Which section is being read, counting the elements marked with data-stage. */
-function readSection() {
-  const line = window.innerHeight * 0.5;
-  let current = 0;
-  document.querySelectorAll<HTMLElement>("[data-stage]").forEach((el, i) => {
-    if (i === 0 || el.getBoundingClientRect().top < line) current = i;
-  });
-  return current;
-}
-
-/** The code that floats behind the photo, retyped for each section. */
+/** The small, faint code lines that drift behind the photo. */
 function Scene({ mobile, reduced }: { mobile: boolean; reduced: boolean }) {
   const width = useThree((s) => s.viewport.width);
-  const [section, setSection] = useState(0);
-
-  useEffect(() => {
-    const update = () => setSection(readSection());
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-
   const scale = mobile ? Math.min(0.56, width * 0.19) : Math.min(1.1, width * 0.12);
   const screenY = mobile ? 1.4 : 0.25;
   return (
     <group position={[mobile ? 0 : width * 0.3, screenY - 0.75 * scale, 0]} scale={scale} rotation={[0.08, 0, 0]}>
-      <CodeCloud section={section} reduced={reduced} mobile={mobile} />
+      <CodeCloud reduced={reduced} mobile={mobile} />
     </group>
   );
 }

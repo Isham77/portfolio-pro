@@ -55,7 +55,7 @@ export default function Sheets() {
     <main id="top" className="sheets">
       <section className="hero" data-stage="0">
         <div className="hero-main">
-          {visible(site.status) && (
+          {site.status && visible(site.status) && (
             <p className="status">
               <i aria-hidden="true" />
               <T>{site.status}</T>

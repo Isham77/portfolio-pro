@@ -29,8 +29,8 @@ export const site = {
   firstName: "Ismail",
   lastName: "Ihthisham",
   role: "Software Engineer",
-  /** Shown as a small badge at the top. */
-  status: "Open to relocating to Bengaluru",
+  /** A small badge at the top, e.g. "Open to new opportunities". Leave empty to hide it. */
+  status: "",
   /** Typed one after another under the name. */
   roles: ["Software Engineer", "Backend Developer", "Full-Stack Developer"],
   statement: "I build secure backend systems and full-stack applications.",
@@ -56,7 +56,6 @@ export const site = {
   facts: [
     { label: "Role", value: "Software Engineer (Junior) at Raasoft" },
     { label: "Based in", value: "Mangaluru, India" },
-    { label: "Open to", value: "Relocating to Bengaluru" },
     { label: "Studied", value: "B.E. Computer Science, VTU (2023)" },
   ],
 

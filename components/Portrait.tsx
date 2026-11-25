@@ -1,9 +1,8 @@
 import { site } from "@/content/site";
 
-/** Ismail's photo in an amber ring, with a few small tags floating around it. */
+/** Ismail's photo in an amber ring, with two skill tags floating beside it. */
 export default function Portrait() {
   const [first, second] = site.skills.flatMap((g) => g.items);
-  const company = site.experience[0]?.company;
   return (
     <div className="portrait">
       <div className="portrait-ring">
@@ -15,12 +14,6 @@ export default function Portrait() {
       <span className="portrait-chip chip-b" aria-hidden="true">
         {second}
       </span>
-      {company && (
-        <span className="portrait-chip chip-c" aria-hidden="true">
-          <i />
-          {company}
-        </span>
-      )}
     </div>
   );
 }
