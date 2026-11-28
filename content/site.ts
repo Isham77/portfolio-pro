@@ -69,7 +69,7 @@ export const site = {
 
   /** The card beside the About text. */
   facts: [
-    { label: "Role", value: "Software Engineer (Junior) at Raasoft" },
+    { label: "Role", value: "Software Engineer at Raasoft" },
     { label: "Based in", value: "Mangaluru, India" },
     { label: "Studied", value: "B.E. Computer Science, VTU (2023)" },
   ],
@@ -209,7 +209,7 @@ export const site = {
   experience: [
     {
       company: "Raasoft Pvt Infotech",
-      role: "Software Engineer (Junior)",
+      role: "Software Engineer",
       period: "Dec 2024 – Present",
       points: [
         "Core developer on a standalone financial kiosk with ATM integration: real-time cash flows, and an in-house NPM security package that bridges to ATM device DLLs through WebView2 and C#/.NET.",
