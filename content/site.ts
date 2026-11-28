@@ -29,6 +29,11 @@ export const site = {
   firstName: "Ismail",
   lastName: "Ihthisham",
   role: "Software Engineer",
+  /**
+   * The live address of this website. Link previews on LinkedIn, WhatsApp etc. need it to find
+   * public/og-image.jpg, so update it if the address ever changes.
+   */
+  url: "https://ismail-ihthisham.netlify.app",
   /** A small badge at the top, e.g. "Open to new opportunities". Leave empty to hide it. */
   status: "",
   /** Typed one after another under the name. */
@@ -36,11 +41,13 @@ export const site = {
   statement: "I build secure backend systems and full-stack applications.",
   summary:
     "Software engineer building secure payment and transaction-based applications with Java, Spring Boot, Python and React.",
+  /** The short opening paragraph of the About section. */
   about: [
-    "I'm a software engineer with 2 years of experience building secure payment and transaction-based applications: a US fintech payment and reconciliation platform, a standalone financial kiosk integrated with ATM hardware, and a hybrid client app now in production.",
-    "I build REST APIs with Java and Spring Boot, secure them with Spring Security, and work across C#/.NET services, MySQL and PostgreSQL databases, and React and TypeScript front ends. I focus on API design, authentication and authorization, system integration and reliable transaction flows.",
-    "Right now I'm learning FastAPI, Django, microservices, AWS, CI/CD with GitHub Actions, Kafka and Redis.",
+    "I'm a software engineer with 2 years of experience building secure payment and transaction-based applications, from a US fintech platform to a financial kiosk running on ATM hardware.",
   ],
+  /** Shown as tag rows under the About paragraph. */
+  focus: ["API design", "Authentication & authorization", "System integration", "Reliable transaction flows"],
+  learning: ["FastAPI", "Django", "Microservices", "AWS", "CI/CD", "Kafka", "Redis"],
 
   /** The skills shown as pills at the top of the page. */
   highlights: ["Java", "Spring Boot", "Python", "React", "C# / .NET", "MySQL"],

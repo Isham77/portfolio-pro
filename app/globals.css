@@ -520,6 +520,28 @@ button {
   color: var(--paper);
 }
 
+/* Under the About paragraph: two short rows of tags instead of more paragraphs. */
+.about-points {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.about-points h3 {
+  margin-bottom: 9px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tags-soft li {
+  border-style: dashed;
+  color: var(--text);
+}
+
 .facts-card {
   padding: 8px 20px;
 }
@@ -761,9 +783,65 @@ button {
 }
 
 .project .tags {
+  margin-top: 14px;
+}
+
+/* "View case study": opens and closes the details with a smooth slide. */
+.project-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   margin-top: 16px;
-  padding-top: 14px;
+  padding: 12px 0 0;
+  border: 0;
   border-top: 1px solid var(--line);
+  background: none;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.project-toggle:hover {
+  color: #ecc58a;
+}
+
+.project-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.3s ease;
+}
+
+.project[data-open="true"] .project-toggle svg {
+  transform: rotate(180deg);
+}
+
+.project-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s ease, opacity 0.3s ease;
+}
+
+.project[data-open="true"] .project-details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.project-details-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.project-details .case {
+  margin-top: 14px;
 }
 
 .project .tags li {

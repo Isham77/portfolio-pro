@@ -1,6 +1,7 @@
 import { isTodo, resumeHref, shown, site, tidy, visible } from "@/content/site";
 import Console from "./Console";
 import Icon, { IconName } from "./Icons";
+import ProjectCard from "./ProjectCard";
 import SystemDiagram from "./SystemDiagram";
 import T from "./T";
 import TypedRole from "./TypedRole";
@@ -17,14 +18,6 @@ function Head({ no, eyebrow, title, lead }: { no: string; eyebrow: string; title
     </header>
   );
 }
-
-const CASE_FIELDS = [
-  ["problem", "Context"],
-  ["built", "What I built"],
-  ["contribution", "My role"],
-  ["challenge", "Key engineering"],
-  ["result", "Outcome"],
-] as const;
 
 function socials() {
   const { email, github, linkedin } = site.contact;
@@ -101,12 +94,32 @@ export default function Sheets() {
       <section className="sheet" id="about">
         <Head no="01" eyebrow="About" title="A bit about me" />
         <div className="about">
-          <div className="prose" data-reveal>
-            {site.about.map((p) => (
-              <p key={p}>
-                <T>{p}</T>
-              </p>
-            ))}
+          <div className="about-main">
+            <div className="prose" data-reveal>
+              {site.about.map((p) => (
+                <p key={p}>
+                  <T>{p}</T>
+                </p>
+              ))}
+            </div>
+            <div className="about-points" data-reveal>
+              <div>
+                <h3>Focused on</h3>
+                <ul className="tags">
+                  {site.focus.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Currently learning</h3>
+                <ul className="tags tags-soft">
+                  {site.learning.map((l) => (
+                    <li key={l}>{l}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <dl className="card facts-card" data-reveal>
             {site.facts.map((f) => (
@@ -143,41 +156,7 @@ export default function Sheets() {
         <Head no="03" eyebrow="Projects" title="Selected work" lead="Work projects at Raasoft and personal builds, each written up as a short case study." />
         <div className="projects">
           {projects.map((p) => (
-            <article className="card project" key={p.code} data-reveal>
-              <div className="chrome" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <span>{p.file}</span>
-                <em>{p.kind}</em>
-              </div>
-              <div className="project-body">
-                <span className="project-num" aria-hidden="true">
-                  {p.code}
-                </span>
-                <h3>{p.name}</h3>
-                <p className="project-tag">
-                  <T>{p.tagline}</T>
-                </p>
-                <dl className="case">
-                  {CASE_FIELDS.filter(([key]) => visible(p[key])).map(([key, label]) => (
-                    <div key={key}>
-                      <dt>{label}</dt>
-                      <dd>
-                        <T>{p[key]}</T>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-                <ul className="tags">
-                  {shown(p.stack).map((s) => (
-                    <li key={s}>
-                      <T>{s}</T>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+            <ProjectCard key={p.code} p={p} />
           ))}
         </div>
       </section>
