@@ -49,14 +49,22 @@ export const site = {
   focus: ["API design", "Authentication & authorization", "System integration", "Reliable transaction flows"],
   learning: ["FastAPI", "Django", "Microservices", "AWS", "CI/CD", "Kafka", "Redis"],
 
-  /** The skills shown as pills at the top of the page. */
-  highlights: ["Java", "Spring Boot", "Python", "React", "C# / .NET", "MySQL"],
-
   /** The small cards next to the robot at the top of the page. */
   stats: [
     { label: "Years of experience", value: "2" },
     { label: "Projects shipped", value: "5" },
     { label: "Focus", value: "Backend + full-stack", text: true },
+  ],
+
+  /** The logo row in the hero, under the intro. Each icon is public/logos/<icon>.svg. */
+  tools: [
+    { name: "Java", icon: "java" },
+    { name: "Spring Boot", icon: "spring" },
+    { name: "Python", icon: "python" },
+    { name: "React", icon: "react" },
+    { name: "C# / .NET", icon: "csharp" },
+    { name: "MySQL", icon: "mysql" },
+    { name: "Docker", icon: "docker" },
   ],
 
   /** The card beside the About text. */

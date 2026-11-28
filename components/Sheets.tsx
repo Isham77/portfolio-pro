@@ -62,9 +62,12 @@ export default function Sheets() {
             <TypedRole />
           </p>
           <p className="hero-intro">{site.summary}</p>
-          <ul className="pills" aria-label="Core skills">
-            {site.highlights.map((s) => (
-              <li key={s}>{s}</li>
+          <ul className="hero-tools" aria-label="Tools I work with">
+            {site.tools.map((t) => (
+              <li key={t.name}>
+                <img src={`/logos/${t.icon}.svg`} alt="" width={16} height={16} />
+                {t.name}
+              </li>
             ))}
           </ul>
           <div className="hero-cta">

@@ -334,11 +334,11 @@ button {
 }
 
 .hero-name {
-  font-size: clamp(3.2rem, 8.2vw, 9.4rem);
-  font-stretch: 78%;
+  font-size: clamp(3.1rem, 8.6vw, 8.2rem);
+  font-stretch: 115%;
   font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 
 .hero-name span + span {
@@ -376,21 +376,36 @@ button {
   color: var(--text);
 }
 
-.pills {
+/* The tool logos under the intro, in their own colours, with amber names. */
+.hero-tools {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px 20px;
   margin-top: 22px;
 }
 
-.pills li {
-  padding: 5px 13px;
-  border-radius: 999px;
-  border: 1px solid rgba(214, 164, 91, 0.35);
-  background: var(--amber-soft);
+.hero-tools li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   color: #ecc58a;
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.hero-tools img {
+  width: 16px;
+  height: 16px;
+}
+
+/* These two logos are dark blue, so they get extra light to show on the dark page. */
+.hero-tools img[src$="/mysql.svg"] {
+  filter: brightness(2.4) saturate(0.8);
+}
+
+.hero-tools img[src$="/java.svg"] {
+  filter: brightness(1.6);
 }
 
 .hero-cta {
